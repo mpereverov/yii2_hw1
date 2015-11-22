@@ -5,14 +5,14 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 
-class User extends Model
+class EntryForm extends Model
 {
     public $firstName;
     public $lastName;
-    public $login;
-    public $email;
-    public $group;
-    public $password;
+    public $speciality;
+    public $education;
+    public $SpecialSkill;
+    public $WorkExperience;
 
     public function attributeLabels()
     {
