@@ -17,7 +17,7 @@ class UserController extends Controller
      *
      * @return mixed
      */
-    public function actionViewUserAttr()
+    public function actionViewuserattr()
     {
         return $this->render('viewUserAttr');
     }

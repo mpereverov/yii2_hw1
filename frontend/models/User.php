@@ -9,10 +9,10 @@ class User extends Model
 {
     public $firstName;
     public $lastName;
-    protected $login;
+    public $login;
     public $email;
-    protected $group;
-    protected $password;
+    public $group;
+    public $password;
 
     public function attributeLabels()
     {
