@@ -4,37 +4,26 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-//use frontend\models\User;
+use frontend\models\CandidateForm;
 
 /**
  * Class UserController
  * @package app\controllers
  */
-class UserController extends Controller
+class FormController extends Controller
 {
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
-    public function actionViewuserattr()
+    public function actionCreate()
     {
-        return $this->render('viewUserAttr');
+        $model = new CandidateForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('candidate', [
+                'model' => $model,
+            ]);
+        }
     }
-
-    /**}
-     *
-     */
-//    public function actionViewUserAttributes()
-//    {
-//        $model = new User();
-
-////        foreach ($model as $name => $value) {
-////            echo "$name: $value\n";
-//        }
-
-//        return $this->render('viewUserAttributes', [
-//            'model' => $model
-//        ]);
-//    }
 }
+
+
