@@ -4,13 +4,14 @@ use yii\widgets\ActiveForm;
 
 $form = ActiveForm::begin([
     'id' => 'candidate-form',
+    'enableAjaxValidation' => 'true',
     'options' => ['class' => 'form-horizontal'],
 ]) ?>
 
-    <?php $form->field($model, 'firstName')->textInput()->hint('Your forename')->lable('Name') ?>
-    <?php $form->field($model, 'lastName')->textInput()->hint('Your surname')->lable('Surname') ?>
+    <?php $form->field($model, 'firstName')->textInput()->hint('Your forename')->$this->lable('Name') ?>
+    <?php $form->field($model, 'lastName')->textInput()->hint('Your surname')->$this->lable('Surname') ?>
     <?php $form->field($model, 'gender')->radioList(['1'=>'Male', '2'=>'Female']) ?>
-    <?php $form->field($model, 'age')->textInput()->hint('Full age')->lable('Surname') ?>
+    <?php $form->field($model, 'age')->textInput()->hint('Full age')->$this->lable('Surname') ?>
     <?php $form->field($model, 'maritalStatus')->radioList(['1'=>'Married', '2'=>'Unmarried', '3'=>'Divorced']) ?>
     <?php $form->field($model, 'speciality')->dropDownList($listSpeciality[], ['prompt'=>'Choose one...']) ?>
     <?php $form->field($model, 'education')->checkboxList($listEducation[]) ?>

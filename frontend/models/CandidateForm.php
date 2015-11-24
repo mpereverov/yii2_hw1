@@ -54,12 +54,15 @@ class CandidateForm extends Model
              ],
                 'required', 'message' => 'Field can not be blank!'],
             ['email', 'email', 'message' => 'Wrong email format.'],
-            [['firstName','lastName'], 'match', 'pattern' => '/^[a-z]\w*$/i', 'message' => 'Not allowed characters contains.'],
+            [['firstName','lastName', 'experience'], 'match', 'pattern' => '/^[a-z]\w*$/i', 'message' => 'Not allowed characters contains.'],
             [],
 
         ];
     }
 
+    public function save()
+    {
 
+    }
 
 }

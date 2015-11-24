@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\CandidateForm;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Class UserController
@@ -16,9 +18,16 @@ class FormController extends Controller
     {
         $model = new CandidateForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())
+//            && $model->save()
+        ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            return ActiveForm::validate($model);
+
+//            return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
             return $this->render('candidate', [
                 'model' => $model,
             ]);
