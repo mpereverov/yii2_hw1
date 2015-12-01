@@ -70,10 +70,48 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
+//    public function actionIndex()
+//    {
+//        return $this->render('index');
+//    }
+
+//    public function actionIndex()
+//    {
+//        $user = new User();
+//        $user->username = 'alex';
+//        $user->save();
+//
+//        //$myUser =User::find()->where(['id' => 1])->asAray()->one;
+//        // ->where(['id' => 1])->andWhere(...);
+//        $myUser =User::find()->where(['id' => 1])->one;
+//        $myUser=
+//
+//            //** Delete all by $condition */
+//            User::deleteAll(['id'=>1]);
+//        //** Delete ALL! */
+//        User::deleteAll();
+//
+//
+//        var_dump($myUser); exit;
+//
+//        return $this->render(index);
+//    }
+//$post = new Post();
+//$post->user_id = $myUser->id;
+//$post->description = 'gsdkg';
+////$post->populateRelation('user', $myUser);
+//$post->save;
+//
+//$post = new Post
+//Ленивая загрузка
+//$post = Post::find()->where(['id' => 1])->one();
+//Жадная загрузка
+//$post = Post::find()->joinWith('user')->where(['id' => 1])->one();
+//var_dump();
+
+
+    //** In command line */
+    //php yii migrate/create post
 
     /**
      * Logs in a user.

@@ -4,8 +4,27 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\UploadedFile;
+use yii\db\ActiveRecord;
+/**
+ * This is the model class for table "candidate".
+ *
+ * @property integer $id
+ * @property string  $firstname
+ * @property string  $lastname
+ * @property integer $gender
+ * @property integer $age
+ * @property integer $marital_status
+ * @property integer $speciality
+ * @property integer $education
+ * @property string  $special_skill
+ * @property integer $experience
+ * @property integer $recommendations
+ * @property string  $photo
+ * @property string  $$email
+ */
 
-class CandidateForm extends Model
+class CandidateForm extends ActiveRecord
 {
     public $firstName;
     public $lastName;
@@ -18,18 +37,74 @@ class CandidateForm extends Model
     public $experience;
     public $recommendations;
     public $photo;
+    public $email;
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'candidate';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['firstname',
+                'lastname',
+                'gender',
+                'age',
+                'marital_status',
+                'speciality',
+                'education',
+                'experience',
+                'recommendations',
+                'photo',
+                'email'], 'required', 'message' => 'Field can not be blank!'],
+            [['gender',
+                'age',
+                'marital_status',
+                'speciality',
+                'education',
+                'experience',
+                'recommendations'], 'integer'],
+            [['firstname',
+                'lastname',
+                'special_skill',
+                'photo',
+                'email'], 'string', 'max' => 255],
+            [['email'], 'unique'],
+            [['email'], 'email', 'message' => 'Wrong email format.'],
+            [['firstname','lastname'],
+                'match',
+                'pattern' => '/^[a-z]\w*$/i',
+                'message' => 'Not allowed characters contains!'
+            ],
+            ['age', 'integer', 'min' => 18, 'max' => 65],
+            ['photo', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
+            //    'maxSize' => 1024*1024
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
 
     public function attributeLabels()
     {
         return [
-            'firstName' => 'Name',
-            'lastName' => 'Surname',
+            'firstname' => 'Name',
+            'lastname' => 'Surname',
             'gender' => 'Gender',
             'age' => 'Age',
-            'maritalStatus' => 'Marital status',
+            'marital_status' => 'Marital status',
             'speciality' => 'Speciality',
             'education' => 'Education',
-            'specialSkill' => 'Special skills',
+            'special_skill' => 'Special skills',
             'experience' => 'Experience',
             'recommendations' => 'Recommendations',
             'photo' => 'Your photo',
@@ -37,32 +112,48 @@ class CandidateForm extends Model
         ];
     }
 
-    public function rules()
+//    public function rules()
+//    {
+//        return [
+//            [['firstName',
+//                'lastName',
+//                'gender',
+//                'age',
+//                'maritalStatus',
+//                'speciality',
+//                'education',
+//                'experience',
+//                'photo',
+//                'email', ], 'required', 'message' => 'Field can not be blank!'
+//            ],
+//            ['email', 'email', 'message' => 'Wrong email format.'],
+//            [['firstName','lastName'],
+//                'match',
+//                'pattern' => '/^[a-z]\w*$/i',
+//                'message' => 'Not allowed characters contains.'
+//            ],
+//            ['age', 'integer', 'min' => 18, 'max' => 75],
+//            ['photo', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg', 'maxSize' => 1024*1024],
+//
+//        ];
+//    }
+
+    /**
+     * @var UploadedFile
+     */
+    public function upload()
     {
-        return [
-            [['firstName',
-                'lastName',
-                'gender',
-                'age',
-                'maritalStatus',
-                'speciality',
-                'education',
-                'experience',
-                'photo',
-                'email',
-
-             ],
-                'required', 'message' => 'Field can not be blank!'],
-            ['email', 'email', 'message' => 'Wrong email format.'],
-            [['firstName','lastName', 'experience'], 'match', 'pattern' => '/^[a-z]\w*$/i', 'message' => 'Not allowed characters contains.'],
-            [],
-
-        ];
+        if ($this->validate()) {
+            $this->photo->saveAs('uploads/' . $this->photo->baseName . '.' . $this->photo->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function save()
-    {
-
-    }
+//    public function save()
+//    {
+//
+//    }
 
 }

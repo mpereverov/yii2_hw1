@@ -5,26 +5,39 @@ use yii\widgets\ActiveForm;
 $form = ActiveForm::begin([
     'id' => 'candidate-form',
     'enableAjaxValidation' => 'true',
-    'options' => ['class' => 'form-horizontal'],
+    'options' => ['class' => 'form-horizontal', 'enctype' => 'multipart/form-data'],
 ]) ?>
-
-    <?php $form->field($model, 'firstName')->textInput()->hint('Your forename')->$this->lable('Name') ?>
-    <?php $form->field($model, 'lastName')->textInput()->hint('Your surname')->$this->lable('Surname') ?>
-    <?php $form->field($model, 'gender')->radioList(['1'=>'Male', '2'=>'Female']) ?>
-    <?php $form->field($model, 'age')->textInput()->hint('Full age')->$this->lable('Surname') ?>
-    <?php $form->field($model, 'maritalStatus')->radioList(['1'=>'Married', '2'=>'Unmarried', '3'=>'Divorced']) ?>
-    <?php $form->field($model, 'speciality')->dropDownList($listSpeciality[], ['prompt'=>'Choose one...']) ?>
-    <?php $form->field($model, 'education')->checkboxList($listEducation[]) ?>
-    <?php $form->field($model, 'specialSkill')->textarea() ?>
-    <?php $form->field($model, 'specialSkill')->textarea()->label('Your special skills, coma separated'); ?>
-    <?php $form->field($model, 'specialSkill')->textarea(array('rows'=>3,'cols'=>5)) ?>
-    <?php $form->field($model, 'experience')->dropDownList($listExperience[], ['prompt'=>'Years']) ?>
-    <?php $form->field($model, 'recommendations')->radioList(['1'=>'I have', '2'=>'I do not have']) ?>
-    <?php $form->field($model, 'photo')->fileInput() ?>
+<div class="col-lg-3">
+    <?= $form->field($model, 'firstname')->textInput()->hint('Your forename') ?>
+    <?= $form->field($model, 'lastname')->textInput()->hint('Your surname') ?>
+    <?= $form->field($model, 'gender')->radioList(['1'=>'Male', '2'=>'Female']) ?>
+    <?= $form->field($model, 'age')->textInput()->hint('Full age') ?>
+    <?= $form->field($model, 'marital_status')->radioList(['1'=>'Married', '2'=>'Unmarried', '3'=>'Divorced']) ?>
+    <?= $form->field($model, 'speciality')->dropDownList(['0'=>'Electrician',
+                                                            '1'=>'Driver',
+                                                            '2'=>'Programmer',
+                                                            '3'=>'Accountant',
+                                                            '4'=>'Economist'],
+                                                            ['prompt'=>'Choose one...']) ?>
+    <?= $form->field($model, 'education')->checkboxList(['0'=>'High school',
+                                                            '1'=>'Two-year college',
+                                                            '2'=>'Bachelor\'s degree',
+                                                            '3'=>'Master\'s degree',
+                                                            '4'=>'Doctor of Philosophy',]) ?>
+    <?= $form->field($model, 'special_skill')->textarea()->hint('Your special skills, coma separated'); ?>
+    <?= $form->field($model, 'experience')->dropDownList(['0'=>'<=1 year',
+                                                            '1'=>'<=3 years',
+                                                            '2'=>'<=5 years',
+                                                            '3'=>'>5 ears'],
+                                                            ['prompt'=>'Your experience in years']) ?>
+    <?= $form->field($model, 'recommendations')->radioList(['1'=>'I have', '2'=>'I do not have']) ?>
+    <?= $form->field($model, 'photo')->fileInput()->hint('Photo in .jpg only') ?>
+    <?= $form->field($model, 'email')->textInput()->hint('E-mail') ?>
 
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
             <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
+</div>
 <?php ActiveForm::end() ?>
