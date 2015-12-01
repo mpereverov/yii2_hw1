@@ -81,7 +81,7 @@ class CandidateForm extends ActiveRecord
             [['firstname','lastname'],
                 'match',
                 'pattern' => '/^[a-z]\w*$/i',
-                'message' => 'Not allowed characters contains!'
+                'message' => 'Not allowed characters contain!'
             ],
             ['age', 'integer', 'min' => 18, 'max' => 65],
             ['photo', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',

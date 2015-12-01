@@ -33,24 +33,27 @@ class FormController extends Controller
                 'model' => $model,
             ]);
         }
+
+        $model->photo = UploadedFile::getInstance($model, 'photo');
+        $model->photo->saveAs('uploads/' . $model->photo->baseName . '.' . $model->photo->extension);
     }
 
-    /**
-     * @return string
-     */
-    public function actionUpload()
-    {
-        $model = new CandidateForm();
-
-        if (Yii::$app->request->isPost) {
-            $model->photo = UploadedFile::getInstance($model, 'photo');
-
-            if ($model->photo && $model->validate()) {
-                $model->photo->saveAs('uploads/' . $model->photo->baseName . '.' . $model->photo->extension);
-            }
-        }
-
-        return $this->render('upload', ['model' => $model]);
-    }
+//    /**
+//     * @return string
+//     */
+//    public function actionUpload()
+//    {
+//        $model = new CandidateForm();
+//
+//        if (Yii::$app->request->isPost) {
+//            $model->photo = UploadedFile::getInstance($model, 'photo');
+//
+//            if ($model->photo && $model->validate()) {
+//                $model->photo->saveAs('uploads/' . $model->photo->baseName . '.' . $model->photo->extension);
+//            }
+//        }
+//
+//        return $this->render('upload', ['model' => $model]);
+//    }
 }
 

@@ -19,7 +19,7 @@ $form = ActiveForm::begin([
                                                             '3'=>'Accountant',
                                                             '4'=>'Economist'],
                                                             ['prompt'=>'Choose one...']) ?>
-    <?= $form->field($model, 'education')->checkboxList(['0'=>'High school',
+    <?= $form->field($model, 'education')->radioList(['0'=>'High school',
                                                             '1'=>'Two-year college',
                                                             '2'=>'Bachelor\'s degree',
                                                             '3'=>'Master\'s degree',
@@ -30,7 +30,7 @@ $form = ActiveForm::begin([
                                                             '2'=>'<=5 years',
                                                             '3'=>'>5 ears'],
                                                             ['prompt'=>'Your experience in years']) ?>
-    <?= $form->field($model, 'recommendations')->radioList(['1'=>'I have', '2'=>'I do not have']) ?>
+    <?= $form->field($model, 'recommendations')->checkbox(['1'=>'I have']) ?>
     <?= $form->field($model, 'photo')->fileInput()->hint('Photo in .jpg only') ?>
     <?= $form->field($model, 'email')->textInput()->hint('E-mail') ?>
 
