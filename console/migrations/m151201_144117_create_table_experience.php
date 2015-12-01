@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m151201_055807_create_table_speciality extends Migration
+class m151201_144117_create_table_experience extends Migration
 {
     public function up()
     {
@@ -13,17 +13,17 @@ class m151201_055807_create_table_speciality extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%speciality}}', [
+        $this->createTable('{{%experience}}', [
             'id' => $this->primaryKey(),
-            'speciality' => $this->string()->notNull(),
+            'experience' => $this->string()->notNull(),
         ], $tableOptions
         );
     }
 
     public function down()
     {
-        $this->dropTable('{{%speciality}}');
-        echo "m151201_055807_create_table_speciality cannot be reverted.\n";
+        $this->dropTable('{{%experience}}');
+        echo "m151201_144117_create_table_experience cannot be reverted.\n";
 
         return false;
     }

@@ -10,9 +10,9 @@ $form = ActiveForm::begin([
 <div class="col-lg-3">
     <?= $form->field($model, 'firstname')->textInput()->hint('Your forename') ?>
     <?= $form->field($model, 'lastname')->textInput()->hint('Your surname') ?>
-    <?= $form->field($model, 'gender')->radioList(['1'=>'Male', '2'=>'Female']) ?>
+    <?= $form->field($model, 'gender')->radioList(['0'=>'Male', '1'=>'Female']) ?>
     <?= $form->field($model, 'age')->textInput()->hint('Full age') ?>
-    <?= $form->field($model, 'marital_status')->radioList(['1'=>'Married', '2'=>'Unmarried', '3'=>'Divorced']) ?>
+    <?= $form->field($model, 'marital_status')->radioList(['0'=>'Married', '1'=>'Unmarried', '2'=>'Divorced']) ?>
     <?= $form->field($model, 'speciality')->dropDownList(['0'=>'Electrician',
                                                             '1'=>'Driver',
                                                             '2'=>'Programmer',
