@@ -6,24 +6,24 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "candidate".
  *
  * @property integer $id
- * @property string  $firstname
- * @property string  $lastname
+ * @property string $firstname
+ * @property string $lastname
  * @property integer $gender
  * @property integer $age
  * @property integer $marital_status
  * @property integer $speciality
  * @property integer $education
- * @property string  $special_skill
+ * @property string $special_skill
  * @property integer $experience
  * @property integer $recommendations
- * @property string  $photo
+ * @property string $image
  * @property string  $$email
  */
-
 class CandidateForm extends ActiveRecord
 {
     public $firstName;
@@ -36,8 +36,11 @@ class CandidateForm extends ActiveRecord
     public $specialSkill;
     public $experience;
     public $recommendations;
-    public $photo;
+    public $image;
     public $email;
+
+    /** @var  UploadedFile */
+    public $imageFile;
 
     /**
      * @inheritdoc
@@ -62,7 +65,7 @@ class CandidateForm extends ActiveRecord
                 'education',
                 'experience',
                 'recommendations',
-                'photo',
+                'image',
                 'email'], 'required', 'message' => 'Field can not be blank!'],
             [['gender',
                 'age',
@@ -74,18 +77,18 @@ class CandidateForm extends ActiveRecord
             [['firstname',
                 'lastname',
                 'special_skill',
-                'photo',
+                'image',
                 'email'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['email'], 'email', 'message' => 'Wrong email format.'],
-            [['firstname','lastname'],
+            [['firstname', 'lastname'],
                 'match',
                 'pattern' => '/^[a-z]\w*$/i',
                 'message' => 'Not allowed characters contain!'
             ],
             ['age', 'integer', 'min' => 18, 'max' => 65],
-            ['photo', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
-            //    'maxSize' => 1024*1024
+            ['image', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
+                //    'maxSize' => 1024*1024
             ],
         ];
     }
@@ -107,9 +110,42 @@ class CandidateForm extends ActiveRecord
             'special_skill' => 'Special skills',
             'experience' => 'Experience',
             'recommendations' => 'Recommendations',
-            'photo' => 'Your photo',
+            'image' => 'Your photo',
             'email' => 'E-mail',
         ];
+    }
+
+    public function load($data, $formName = null)
+    {
+        if (!parent::load($data, $formName)) {
+            return false;
+        }
+//Где определено $this->imageFile?
+        $this->imageFile = UploadedFile::getInstance($this, 'image');
+    }
+
+    public function beforeSave($insert)
+    {
+        if($this->imageFile){
+            $this->image = $this->imageFile->name . '.' . $this->imageFile->extension;
+        }
+
+        return parent::beforeSave($insert);
+
+    }
+    public function getImageUrl(){
+        return '/uploads/'.$this->image;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $this->saveImage();
+    }
+
+    public function saveImage()
+    {
+        $this->imageFile->saveAs( __DIR__.'/../web/uploads/'.$this->image);
     }
 
 //    public function rules()
@@ -144,7 +180,7 @@ class CandidateForm extends ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->photo->saveAs('uploads/' . $this->photo->baseName . '.' . $this->photo->extension);
+            $this->image->saveAs('uploads/' . $this->image->baseName . '.' . $this->image->extension);
             return true;
         } else {
             return false;

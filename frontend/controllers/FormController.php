@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
+
 /**
  * Class UserController
  * @package app\controllers
@@ -19,20 +20,19 @@ class FormController extends Controller
     {
         $model = new CandidateForm();
 
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())
-//            && $model->save()
-        ) {
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             return ActiveForm::validate($model);
+        }
 
-//            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if($model->load(Yii::$app->request->post())){
+
+        }
 
             return $this->render('candidate', [
                 'model' => $model,
             ]);
-        }
 
         $model->photo = UploadedFile::getInstance($model, 'photo');
         $model->photo->saveAs('uploads/' . $model->photo->baseName . '.' . $model->photo->extension);
