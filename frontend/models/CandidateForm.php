@@ -87,7 +87,7 @@ class CandidateForm extends ActiveRecord
                 'message' => 'Not allowed characters contain!'
             ],
             ['age', 'integer', 'min' => 18, 'max' => 65],
-            ['image', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
+            ['image', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg', 'on' => 'save'
                 //    'maxSize' => 1024*1024
             ],
         ];
@@ -120,19 +120,20 @@ class CandidateForm extends ActiveRecord
         if (!parent::load($data, $formName)) {
             return false;
         }
-//Где определено $this->imageFile?
-        $this->imageFile = UploadedFile::getInstance($this, 'image');
+
+        return $this->imageFile = UploadedFile::getInstance($this, 'image');
     }
 
     public function beforeSave($insert)
     {
         if($this->imageFile){
-            $this->image = $this->imageFile->name . '.' . $this->imageFile->extension;
+            $this->image = $this->imageFile->name . '.' . $this->imageFile->extension; //pic.jpg
         }
 
         return parent::beforeSave($insert);
 
     }
+
     public function getImageUrl(){
         return '/uploads/'.$this->image;
     }
@@ -174,22 +175,17 @@ class CandidateForm extends ActiveRecord
 //        ];
 //    }
 
-    /**
-     * @var UploadedFile
-     */
-    public function upload()
-    {
-        if ($this->validate()) {
-            $this->image->saveAs('uploads/' . $this->image->baseName . '.' . $this->image->extension);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-//    public function save()
+//    /**
+//     * @var UploadedFile
+//     * @return bool
+//     */
+//    public function upload()
 //    {
-//
+//        if ($this->validate()) {
+//            $this->image->saveAs('uploads/' . $this->image->baseName . '.' . $this->image->extension);
+//            return true;
+//        } else {
+//            return false;
+//        }
 //    }
-
 }

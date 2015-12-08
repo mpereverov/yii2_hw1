@@ -26,16 +26,14 @@ class FormController extends Controller
             return ActiveForm::validate($model);
         }
 
-        if($model->load(Yii::$app->request->post())){
-
+        if (Yii::$app->request->isPost) {
+            $model->scenario = 'save';
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $this->redirect('/');
+            }
         }
 
-            return $this->render('candidate', [
-                'model' => $model,
-            ]);
-
-        $model->photo = UploadedFile::getInstance($model, 'photo');
-        $model->photo->saveAs('uploads/' . $model->photo->baseName . '.' . $model->photo->extension);
+        return $this->render('candidate', ['model' => $model]);
     }
 
 
