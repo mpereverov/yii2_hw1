@@ -11,17 +11,17 @@ use yii\db\ActiveRecord;
  * This is the model class for table "candidate".
  *
  * @property integer $id
- * @property string $firstname
- * @property string $lastname
+ * @property string  $firstname
+ * @property string  $lastname
  * @property integer $gender
  * @property integer $age
  * @property integer $marital_status
  * @property integer $speciality
  * @property integer $education
- * @property string $special_skill
+ * @property string  $special_skill
  * @property integer $experience
  * @property integer $recommendations
- * @property string $image
+ * @property string  $image
  * @property string  $$email
  */
 class CandidateForm extends ActiveRecord
@@ -66,7 +66,9 @@ class CandidateForm extends ActiveRecord
                 'experience',
                 'recommendations',
                 'image',
-                'email'], 'required', 'message' => 'Field can not be blank!'],
+                'email'
+                ],
+                'required', 'message' => 'Field can not be blank!'],
             [['gender',
                 'age',
                 'marital_status',
@@ -78,7 +80,9 @@ class CandidateForm extends ActiveRecord
                 'lastname',
                 'special_skill',
                 'image',
-                'email'], 'string', 'max' => 255],
+                'email'
+                ],
+                'string', 'max' => 255],
             [['email'], 'unique'],
             [['email'], 'email', 'message' => 'Wrong email format.'],
             [['firstname', 'lastname'],
@@ -87,8 +91,10 @@ class CandidateForm extends ActiveRecord
                 'message' => 'Not allowed characters contain!'
             ],
             ['age', 'integer', 'min' => 18, 'max' => 65],
-            ['image', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg', 'on' => 'save'
-                //    'maxSize' => 1024*1024
+            [['image'], 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
+                'message' => 'Not matched  image!',
+                'on' => 'save',
+                'maxSize' => 1024*1024
             ],
         ];
     }
@@ -115,39 +121,39 @@ class CandidateForm extends ActiveRecord
         ];
     }
 
-    public function load($data, $formName = null)
-    {
-        if (!parent::load($data, $formName)) {
-            return false;
-        }
-
-        return $this->imageFile = UploadedFile::getInstance($this, 'image');
-    }
-
-    public function beforeSave($insert)
-    {
-        if($this->imageFile){
-            $this->image = $this->imageFile->name . '.' . $this->imageFile->extension; //pic.jpg
-        }
-
-        return parent::beforeSave($insert);
-
-    }
-
-    public function getImageUrl(){
-        return '/uploads/'.$this->image;
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        $this->saveImage();
-    }
-
-    public function saveImage()
-    {
-        $this->imageFile->saveAs( __DIR__.'/../web/uploads/'.$this->image);
-    }
+//    public function load($data, $formName = null)
+//    {
+//        if (!parent::load($data, $formName)) {
+//            return false;
+//        }
+//
+//        return $this->imageFile = UploadedFile::getInstance($model, 'image');
+//    }
+//
+//    public function beforeSave($insert)
+//    {
+//        if($this->imageFile){
+//            $this->image = $this->imageFile->name . '.' . $this->imageFile->extension; //pic.jpg
+//        }
+//
+//        return parent::beforeSave($insert);
+//
+//    }
+//
+//    public function getImageUrl(){
+//        return '/uploads/'.$this->image;
+//    }
+//
+//    public function afterSave($insert, $changedAttributes)
+//    {
+//        parent::afterSave($insert, $changedAttributes);
+//        $this->saveImage();
+//    }
+//
+//    public function saveImage()
+//    {
+//        $this->imageFile->saveAs( __DIR__.'/../web/uploads/'.$this->image);
+//    }
 
 //    public function rules()
 //    {
