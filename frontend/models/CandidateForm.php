@@ -26,8 +26,8 @@ use yii\db\ActiveRecord;
  */
 class CandidateForm extends ActiveRecord
 {
-    public $firstName;
-    public $lastName;
+//    public $firstName;
+//    public $lastName;
 //    public $gender;
 //    public $age;
 //    public $maritalStatus;
@@ -40,15 +40,15 @@ class CandidateForm extends ActiveRecord
 //    public $email;
 
     /** @var  UploadedFile */
-    public $imageFile;
+//    public $imageFile;
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'candidate';
-    }
+//    public static function tableName()
+//    {
+//        return 'candidate';
+//    }
 
     /**
      * @inheritdoc
@@ -56,8 +56,8 @@ class CandidateForm extends ActiveRecord
     public function rules()
     {
         return [
-            [['firstname',
-                'lastname',
+//            [['firstname',
+//                'lastname',
 //                'gender',
 //                'age',
 //                'marital_status',
@@ -67,8 +67,8 @@ class CandidateForm extends ActiveRecord
 //                'recommendations',
 //                'image',
 //                'email'
-                ],
-                'required', 'message' => 'Field can not be blank!'],
+//                ],
+//                'required', 'message' => 'Field can not be blank!'],
 //            [[
                 //'gender',
 //                'age',
@@ -77,20 +77,20 @@ class CandidateForm extends ActiveRecord
 //                'education',
 //                'experience',
 //                'recommendations'], 'integer'],
-            [['firstname',
-                'lastname',
-//                'special_skill',
-               // 'image',
-//                'email'
-                ],
-                'string', 'max' => 255],
+//            [['firstname',
+//                'lastname',
+////                'special_skill',
+//               // 'image',
+////                'email'
+//                ],
+//                'string', 'max' => 255],
 //            [['email'], 'unique'],
 //            [['email'], 'email', 'message' => 'Wrong email format.'],
-            [['firstname', 'lastname'],
-                'match',
-                'pattern' => '/^[a-z]\w*$/i',
-                'message' => 'Not allowed characters contain!'
-            ],
+//            [['firstname', 'lastname'],
+//                'match',
+//                'pattern' => '/^[a-z]\w*$/i',
+//                'message' => 'Not allowed characters contain!'
+//            ],
 //            ['age', 'integer', 'min' => 18, 'max' => 65],
             [['image'], 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
                 'message' => 'Not matched  image!',
@@ -107,8 +107,8 @@ class CandidateForm extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'firstname' => 'Name',
-            'lastname' => 'Surname',
+//            'firstname' => 'Name',
+//            'lastname' => 'Surname',
 //            'gender' => 'Gender',
 //            'age' => 'Age',
 //            'marital_status' => 'Marital status',

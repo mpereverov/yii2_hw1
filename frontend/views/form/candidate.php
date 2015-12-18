@@ -8,8 +8,8 @@ $form = ActiveForm::begin([
     'options' => ['class' => 'form-horizontal', 'enctype' => 'multipart/form-data'],
 ]) ?>
 <div class="col-lg-3">
-    <?= $form->field($model, 'firstname')->textInput()->hint('Your forename') ?>
-    <?= $form->field($model, 'lastname')->textInput()->hint('Your surname') ?>
+<!--    <?//= $form->field($model, 'firstname')->textInput()->hint('Your forename') ?>-->
+<!--    <?//= $form->field($model, 'lastname')->textInput()->hint('Your surname') ?>-->
 <!--    <?//= $form->field($model, 'gender')->radioList(['0'=>'Male', '1'=>'Female']) ?>-->
 <!--    <?//= $form->field($model, 'age')->textInput()->hint('Full age') ?>-->
 <!--    <?//= $form->field($model, 'marital_status')->radioList(['0'=>'Married', '1'=>'Unmarried', '2'=>'Divorced']) ?>-->
@@ -40,4 +40,5 @@ $form = ActiveForm::begin([
         </div>
     </div>
 </div>
-<?php ActiveForm::end() ?>
+<?php ActiveForm::end()?>
+<?php var_dump($model->image) ?>
