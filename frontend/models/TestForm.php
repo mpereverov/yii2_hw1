@@ -24,11 +24,11 @@ use yii\db\ActiveRecord;
  * @property string  $image
  * @property string  $$email
  */
-class CandidateForm extends ActiveRecord
+class TestForm extends ActiveRecord
 {
     public $firstName;
     public $lastName;
-//    public $gender;
+    public $gender;
 //    public $age;
 //    public $maritalStatus;
 //    public $speciality;
@@ -36,11 +36,11 @@ class CandidateForm extends ActiveRecord
 //    public $specialSkill;
 //    public $experience;
 //    public $recommendations;
-    public $image;
+//    public $image;
 //    public $email;
-
-    /** @var  UploadedFile */
-    public $imageFile;
+//
+//    /** @var  UploadedFile */
+//    public $imageFile;
 
     /**
      * @inheritdoc
@@ -58,14 +58,14 @@ class CandidateForm extends ActiveRecord
         return [
             [['firstname',
                 'lastname',
-//                'gender',
+                'gender',
 //                'age',
 //                'marital_status',
 //                'speciality',
 //                'education',
 //                'experience',
 //                'recommendations',
-//                'image',
+//               // 'image',
 //                'email'
                 ],
                 'required', 'message' => 'Field can not be blank!'],
@@ -76,7 +76,8 @@ class CandidateForm extends ActiveRecord
 //                'speciality',
 //                'education',
 //                'experience',
-//                'recommendations'], 'integer'],
+//                'recommendations'
+//            ], 'integer'],
             [['firstname',
                 'lastname',
 //                'special_skill',
@@ -92,11 +93,12 @@ class CandidateForm extends ActiveRecord
                 'message' => 'Not allowed characters contain!'
             ],
 //            ['age', 'integer', 'min' => 18, 'max' => 65],
-            [['image'], 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
-                'message' => 'Not matched  image!',
+//            [['image'], 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg',
+//                'message' => 'Not matched  image!',
 //                'on' => 'save',
                // 'maxSize' => 1024*1024
-            ],
+//            ],
+            [['gender'], 'safe'],
         ];
     }
 
@@ -109,7 +111,7 @@ class CandidateForm extends ActiveRecord
         return [
             'firstname' => 'Name',
             'lastname' => 'Surname',
-//            'gender' => 'Gender',
+            'gender' => 'Gender',
 //            'age' => 'Age',
 //            'marital_status' => 'Marital status',
 //            'speciality' => 'Speciality',
@@ -117,16 +119,10 @@ class CandidateForm extends ActiveRecord
 //            'special_skill' => 'Special skills',
 //            'experience' => 'Experience',
 //            'recommendations' => 'Recommendations',
-            'image' => 'Your photo',
+//            'image' => 'Your photo',
 //            'email' => 'E-mail',
         ];
     }
-
-
-
-
-
-
 
 //    public function load($data, $formName = null)
 //    {
@@ -162,6 +158,31 @@ class CandidateForm extends ActiveRecord
 //        $this->imageFile->saveAs( __DIR__.'/../web/uploads/'.$this->image);
 //    }
 
+//    public function rules()
+//    {
+//        return [
+//            [['firstName',
+//                'lastName',
+//                'gender',
+//                'age',
+//                'maritalStatus',
+//                'speciality',
+//                'education',
+//                'experience',
+//                'photo',
+//                'email', ], 'required', 'message' => 'Field can not be blank!'
+//            ],
+//            ['email', 'email', 'message' => 'Wrong email format.'],
+//            [['firstName','lastName'],
+//                'match',
+//                'pattern' => '/^[a-z]\w*$/i',
+//                'message' => 'Not allowed characters contains.'
+//            ],
+//            ['age', 'integer', 'min' => 18, 'max' => 75],
+//            ['photo', 'file', 'skipOnEmpty' => 'false', 'extensions' => 'jpg', 'maxSize' => 1024*1024],
+//
+//        ];
+//    }
 
 //    /**
 //     * @var UploadedFile
